@@ -1,0 +1,19 @@
+<div>
+  <nz-modal [(nzVisible)]="visible" [nzTitle]="title" (nzOnOk)="handleOk()" [nzClosable]="false" nzWidth="900">
+    <nz-divider nzText="文章标题"></nz-divider>
+    <div>
+      <textarea nz-input placeholder="请输入标题" ></textarea>
+    </div>
+    <nz-divider nzText="文章内容"></nz-divider>
+    <div>
+      <editor
+        apiKey="no-api-key"
+        [init]="{
+          height: 500,
+          plugins: 'link'
+        }"
+      >
+      </editor>
+    </div>
+  </nz-modal>
+</div>

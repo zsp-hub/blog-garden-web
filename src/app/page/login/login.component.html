@@ -1,0 +1,26 @@
+<nz-modal [nzVisible]="visible" [nzFooter]=null [nzClosable]="false" nzWidth="350">
+  <nz-divider nzText="请登录"></nz-divider>
+  <form nz-form [formGroup]="validateForm" class="login-form" (ngSubmit)="submitForm()">
+    <nz-form-item>
+      <nz-form-control nzErrorTip="请输入你的账号">
+        <nz-input-group nzPrefixIcon="user" >
+          <input type="text" nz-input formControlName="userAccount" placeholder="账号" />
+        </nz-input-group>
+      </nz-form-control>
+    </nz-form-item>
+    <nz-form-item>
+      <nz-form-control nzErrorTip="请输入你的密码">
+        <nz-input-group nzPrefixIcon="lock" >
+          <input type="password" nz-input formControlName="usrePassword" placeholder="密码" />
+        </nz-input-group>
+      </nz-form-control>
+    </nz-form-item>
+    <nz-form-item>
+      <nz-form-control>
+        <button style="width: 100%" nz-button class="login-form-button" [nzType]="'primary'">登录</button>
+        <a>注册账户</a>
+      </nz-form-control>
+    </nz-form-item>
+  </form>
+</nz-modal>
+

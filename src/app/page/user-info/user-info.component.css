@@ -1,0 +1,11 @@
+.user-info-flex{
+  display:flex;
+  flex-direction:row;
+  flex-wrap: nowrap;
+
+  justify-content: space-around;
+
+  margin-top: 30px;
+
+  width: 100%;
+}

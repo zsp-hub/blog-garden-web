@@ -1,0 +1,60 @@
+
+<div class="table-margin">
+  <div class="table-operations">
+    <button nz-button (click)="addArticle()">添加文章</button>
+  </div>
+  <div>
+    <!--<nz-table-->
+      <!--#ajaxTable-->
+      <!--nzShowSizeChanger-->
+      <!--[nzFrontPagination]="false"-->
+      <!--[nzData]="listOfData"-->
+      <!--[nzLoading]="loading"-->
+      <!--[nzTotal]="total"-->
+      <!--[(nzPageIndex)]="pageIndex"-->
+      <!--[(nzPageSize)]="pageSize"-->
+      <!--(nzPageIndexChange)="searchData()"-->
+      <!--(nzPageSizeChange)="searchData(true)"-->
+    <!--&gt;-->
+      <!--<thead (nzSortChange)="sort($event)" nzSingleSort>-->
+      <!--<tr>-->
+        <!--<th nzShowSort nzSortKey="name">Name</th>-->
+        <!--<th nzShowFilter [nzFilters]="filterGender" (nzFilterChange)="updateFilter($event)">Gender</th>-->
+        <!--<th nzShowSort nzSortKey="email"><span>Email</span></th>-->
+      <!--</tr>-->
+      <!--</thead>-->
+      <!--<tbody>-->
+      <!--<tr *ngFor="let data of ajaxTable.data">-->
+        <!--<td>{{ data.name.first }} {{ data.name.last }}</td>-->
+        <!--<td>{{ data.gender }}</td>-->
+        <!--<td>{{ data.email }}</td>-->
+      <!--</tr>-->
+      <!--</tbody>-->
+    <!--</nz-table>-->
+    <nz-table #basicTable [nzData]="listData" [nzScroll]="{ x: '100%' }" [nzTotal]="total" [(nzPageIndex)]="pageIndex" [(nzPageSize)]="pageSize"
+      (nzPageIndexChange)="getListData()" (nzPageSizeChange)="getListData(true)">
+      <thead (nzSortChange)="sort($event)" nzSingleSort>
+      <tr>
+        <th nzShowSort nzSortKey="articleTitle">标题</th>
+        <th nzShowSort nzSortKey="articleRead">阅读量</th>
+        <th nzShowSort nzSortKey="articleIssueTime">发布时间</th>
+        <th>操作</th>
+      </tr>
+      </thead>
+      <tbody>
+      <tr *ngFor="let data of basicTable.data">
+        <td><a [routerLink]="['/blog/article', data.articleID]">{{ data.articleTitle }}</a></td>
+        <td>{{ data.articleRead }}</td>
+        <td>{{ data.articleIssueTime }}</td>
+        <td>
+          <a>修改</a>
+          <nz-divider nzType="vertical"></nz-divider>
+          <a (click)="deleteArticle(data.articleID)">删除</a>
+        </td>
+      </tr>
+      </tbody>
+    </nz-table>
+  </div>
+</div>
+
+<app-user-article></app-user-article>

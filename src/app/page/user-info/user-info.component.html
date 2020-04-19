@@ -1,0 +1,22 @@
+<div>
+  <nz-divider nzText="统计信息"></nz-divider>
+
+  <div class="user-info-flex">
+    <div [ngStyle]="{ width: '50%', marginLeft: '30px'}">
+      <nz-statistic [nzValue]="userIssue | number" [nzTitle]="'已发布文章'"></nz-statistic>
+    </div>
+    <div [ngStyle]="{ width: '50%',marginLeft: '30px'}">
+      <nz-statistic [nzValue]="userRead | number" [nzTitle]="'已阅读文章'"></nz-statistic>
+    </div>
+  </div>
+
+  <nz-divider nzText="个人简介"></nz-divider>
+
+  <div style="margin: 20px">
+    <textarea [(ngModel)]="userIntro" nz-input rows="5"></textarea>
+    <button nz-button nzType="primary" [disabled]="!userIntro" (click)="updateUserInfo()" style="margin-top: 10px">
+      修改
+    </button>
+  </div>
+
+</div>

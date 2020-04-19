@@ -1,0 +1,23 @@
+<ul nz-menu nzMode="horizontal">
+  <li nz-menu-item>
+    <a [routerLink]="['/blog/home']" class="log-margin">
+      <nz-avatar [nzSize]="50" nzText="Blog" [ngStyle]="{ 'background-color': '#7265e6' }"></nz-avatar>
+    </a>
+  </li>
+  <li nz-menu-item class="nav-length"></li>
+  <li nz-menu-item (click)="openQuery()">
+    <a nz-col>
+      <i nz-icon [nzType]="'search'"></i>
+    </a>
+  </li>
+  <li nz-submenu nzTitle="用户" nzIcon="setting">
+    <ul>
+      <li nz-menu-item [routerLink]="['/blog/user', userID , 'table']">个人管理</li>
+      <li nz-menu-item (click)="logOut()">退出登录</li>
+    </ul>
+  </li>
+</ul>
+
+<!--查询组件-->
+<app-query #query></app-query>
+

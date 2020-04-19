@@ -1,0 +1,28 @@
+<div class="list-margin">
+  <nz-list
+    [nzDataSource]="listData"
+    [nzItemLayout]="'vertical'"
+    [nzRenderItem]="item"
+  >
+    <ng-template #item let-item>
+      <nz-list-item [nzContent]="item.content" [nzActions]="[read, time]" [nzExtra]="extra">
+        <nz-list-item-meta [nzTitle]="nzTitle" [nzDescription]="nzDescription">
+          <ng-template #nzTitle>
+            <p nz-paragraph nzEllipsis> <a [routerLink]="['/blog/article', item.articleID]">{{ item.articleTitle }}</a> </p>
+          </ng-template>
+          <ng-template #nzDescription>
+            <div>
+              <p nz-paragraph nzEllipsis>作者：<a (click)="openAutherInfo(item)" >{{ item.userName }}</a></p>
+            </div>
+          </ng-template>
+        </nz-list-item-meta>
+        <ng-template #read #footer><i nz-icon nzType="eye" style="margin-right: 8px;"></i> {{ item.articleRead }}</ng-template>
+        <ng-template #time #footer><i nz-icon nzType="history" style="margin-right: 8px;"></i> {{ item.articleIssueTime }}</ng-template>
+        <ng-template #extra></ng-template>
+      </nz-list-item>
+    </ng-template>
+  </nz-list>
+</div>
+
+<!--作者信息-->
+<app-auther-info #autherInfo></app-auther-info>

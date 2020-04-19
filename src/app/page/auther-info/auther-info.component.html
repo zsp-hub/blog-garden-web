@@ -1,0 +1,22 @@
+<div>
+  <nz-modal [nzVisible]="visible" [nzFooter]=null [nzClosable]="false" nzWidth="400" (nzOnCancel)="close()">
+    <nz-divider nzText="作者简介"></nz-divider>
+    <div class="auther-info-flex">
+      <div [ngStyle]="{ width: '25%'}">
+        <nz-avatar nzIcon="user" style="background-color:#87d068;" [nzSize]="64"></nz-avatar>
+      </div>
+      <div [ngStyle]="{ width: '73%'}">
+        <p nz-paragraph nzEllipsis>{{ userName }}</p>
+        <P>
+          <i nz-icon nzType="file" style="margin-right: 8px;"></i>{{ data.userIssue}}
+          <nz-divider nzType="vertical"></nz-divider>
+          <i nz-icon nzType="read" style="margin-right: 8px;"></i> {{ data.userRead }}
+        </P>
+      </div>
+    </div>
+    <nz-divider></nz-divider>
+    <div>
+      <textarea readonly rows="5" [ngStyle]="{ width: '100%'}">{{ data.userIntro }}</textarea >
+    </div>
+  </nz-modal>
+</div>

@@ -1,0 +1,12 @@
+.box{
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  height:100%;
+
+}
+.box-item{
+  font-size:2000%;
+  display: inline-block;
+  vertical-align: middle;
+}

@@ -1,0 +1,17 @@
+[nz-carousel-content] {
+  text-align: center;
+  height: 250px;
+  line-height: 250px;
+  background: #364d79;
+  color: #fff;
+  overflow: hidden;
+}
+
+.home-flex{
+  display:flex;
+  flex-direction:row;
+  flex-wrap: nowrap;
+  justify-content: space-around;
+
+  margin-top: 30px;
+}

@@ -1,0 +1,31 @@
+<nz-drawer
+  [nzWidth]="600"
+  [nzClosable]="false"
+  [nzVisible]="visible"
+  nzPlacement="right"
+  nzTitle="查询"
+  (nzOnClose)="close()"
+>
+  <div nz-row>
+    <div nz-col nzSpan="8">
+      <nz-radio-group [(ngModel)]="radioValue">
+        <label nz-radio [nzValue]="o.value" *ngFor="let o of options">{{ o.label }}</label>
+      </nz-radio-group>
+    </div>
+    <div nz-col nzSpan="14">
+      <nz-input-group nzSearch [nzAddOnAfter]="suffixIconButton">
+        <input type="text" nz-input [(ngModel)]="value"/>
+      </nz-input-group>
+      <ng-template #suffixIconButton>
+        <button nz-button nzType="primary" nzSearch (click)="search()"><i nz-icon nzType="search"></i></button>
+      </ng-template>
+    </div>
+  </div>
+
+  <!--列表-->
+  <div>
+    <nz-divider nzText="结果"></nz-divider>
+    <app-list [listData] = "listData"></app-list>
+  </div>
+
+</nz-drawer>
