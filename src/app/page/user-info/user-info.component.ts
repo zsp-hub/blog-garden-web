@@ -35,7 +35,7 @@ export class UserInfoComponent implements OnInit {
         this.userRead = response.userRead;
       }
     }, (error: any) => {
-      this.message.create('error', error.toString());
+      this.message.create('error', error.error.message);
     });
   }
 
@@ -48,7 +48,7 @@ export class UserInfoComponent implements OnInit {
         this.getUserInfo(this.userID);
       }
     }, (error: any) => {
-      this.message.create('error', error.toString());
+      this.message.create('error', error.error.message);
     });
   }
 }

@@ -47,7 +47,7 @@
         <td>{{ data.articleRead }}</td>
         <td>{{ data.articleIssueTime }}</td>
         <td>
-          <a>修改</a>
+          <a (click)="editArticle(data)" )>修改</a>
           <nz-divider nzType="vertical"></nz-divider>
           <a (click)="deleteArticle(data.articleID)">删除</a>
         </td>
@@ -57,4 +57,4 @@
   </div>
 </div>
 
-<app-user-article></app-user-article>
+<app-user-article #article></app-user-article>

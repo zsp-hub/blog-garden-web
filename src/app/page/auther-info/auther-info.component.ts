@@ -43,7 +43,7 @@ export class AutherInfoComponent implements OnInit {
         this.data = response;
       }
     }, (error: any) => {
-      this.message.create('error', error.toString());
+      this.message.create('error', error.error.message);
     });
   }
 }

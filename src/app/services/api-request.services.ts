@@ -6,6 +6,7 @@ import {ArticleListRequestEntity} from '../entity/article-list-request.entity';
 import {CommentRequestEntity} from '../entity/comment-request.entity';
 import {AddReadRequestEntity} from '../entity/add-read-request.entity';
 import {UserInfoRequestEntity} from '../entity/user-info-request.entity';
+import {ArticleRequestEntity} from '../entity/article-request.entity';
 
 
 @Injectable({
@@ -46,19 +47,19 @@ export class ApiRequestServices {
     return this.http.get(api + '?articleID=' + articleID);
   }
 
-  // addArticle() {
-  //   const api: string = ApiBaseServices.API_ENDPOINT + 'article';
-  //   return this.http.post(api);
-  // }
-
-  // updateArticle() {
-  //   const api: string = ApiBaseServices.API_ENDPOINT + 'article';
-  //   return this.http.put(api);
-  // }
-
-  deleteArticle(articleID: number) {
+  addArticle(articleRequest: ArticleRequestEntity) {
     const api: string = ApiBaseServices.API_ENDPOINT + 'article';
-    return this.http.delete(api + '?articleID=' + articleID);
+    return this.http.post(api, articleRequest);
+  }
+
+  updateArticle(articleRequest: ArticleRequestEntity) {
+    const api: string = ApiBaseServices.API_ENDPOINT + 'article';
+    return this.http.put(api, articleRequest);
+  }
+
+  deleteArticle(articleID: number, userID: number) {
+    const api: string = ApiBaseServices.API_ENDPOINT + 'article';
+    return this.http.delete(api + '?articleID=' + articleID + '&userID=' + userID);
   }
 
   getComment(articleID: number) {

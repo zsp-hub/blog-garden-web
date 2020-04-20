@@ -1,7 +1,7 @@
 export class CommentRequestEntity {
   articleID: number;
   commentSerialNumber: number;
-  commentTitle: string;
+  userID: number;
   commentContent: string;
 }
 

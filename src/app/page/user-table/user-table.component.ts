@@ -1,8 +1,9 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, OnInit, ViewChild} from '@angular/core';
 import {ApiRequestServices} from '../../services/api-request.services';
 import {NzMessageService} from 'ng-zorro-antd';
 import {ArticleListRequestEntity} from '../../entity/article-list-request.entity';
 import {DataPersistenceServices} from '../../services/data-persistence.services';
+import {UserArticleComponent} from '../user-article/user-article.component';
 
 @Component({
   selector: 'app-user-table',
@@ -10,6 +11,8 @@ import {DataPersistenceServices} from '../../services/data-persistence.services'
   styleUrls: ['./user-table.component.css']
 })
 export class UserTableComponent implements OnInit {
+
+  @ViewChild('article', { static: false }) article: UserArticleComponent;
 
   articleListRequest: ArticleListRequestEntity = new ArticleListRequestEntity();
   userID: number = null;
@@ -35,7 +38,11 @@ export class UserTableComponent implements OnInit {
   }
 
   addArticle() {
+    this.article.addArticle();
+  }
 
+  editArticle(item: any) {
+    this.article.editArticle(item);
   }
 
   sort(sort: { key: string; value: string }): void {
@@ -63,12 +70,12 @@ export class UserTableComponent implements OnInit {
         this.listData = response.result;
       }
     }, (error: any) => {
-      this.message.create('error', error.toString());
+      this.message.create('error', error.error.message);
     });
   }
 
   deleteArticle(articleID: number) {
-    this.api.deleteArticle(articleID).subscribe((response: any) => {
+    this.api.deleteArticle(articleID, this.data.get('userID')).subscribe((response: any) => {
       if (response.success) {
         this.message.create('success', '删除成功');
         this.getListData(true);
@@ -76,7 +83,7 @@ export class UserTableComponent implements OnInit {
         this.message.create('error', response.message);
       }
     }, (error: any) => {
-      this.message.create('error', error.toString());
+      this.message.create('error', error.error.message);
     });
   }
 }

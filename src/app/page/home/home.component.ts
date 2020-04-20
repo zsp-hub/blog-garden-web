@@ -47,7 +47,7 @@ export class HomeComponent implements OnInit {
         this.listData = response.result;
       }
     }, (error: any) => {
-      this.message.create('error', error.toString());
+      this.message.create('error', error.error.message);
     });
   }
 

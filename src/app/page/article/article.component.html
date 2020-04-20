@@ -19,22 +19,8 @@
   <div class="article-margin">
     <nz-divider nzText="评论"></nz-divider>
 
-    <!--<nz-list *ngIf="comment.length" [nzDataSource]="comment" [nzRenderItem]="item" [nzItemLayout]="'horizontal'">-->
-      <!--<ng-template #item let-item>-->
-        <!--<nz-comment [nzAuthor]="item.commentTitle" [nzDatetime]="item.commentTime">-->
-          <!--<nz-avatar nz-comment-avatar nzIcon="user"></nz-avatar>-->
-            <!--<nz-comment-content>-->
-              <!--<p>{{ item.commentContent }}</p>-->
-            <!--</nz-comment-content>-->
-            <!--<ng-container *ngIf="item.children && item.children.length">-->
-              <!---->
-            <!--</ng-container>-->
-          <!--</nz-comment>-->
-      <!--</ng-template>-->
-    <!--</nz-list>-->
-
     <ng-template #commentTemplateRef let-item="item">
-      <nz-comment [nzAuthor]="item.commentTitle" [nzDatetime]="item.commentTime">
+      <nz-comment [nzAuthor]="item.userName" [nzDatetime]="item.commentTime">
         <nz-avatar nz-comment-avatar nzIcon="user"></nz-avatar>
         <nz-comment-content>
           <p>{{ item.commentContent }}</p>

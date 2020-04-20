@@ -57,14 +57,14 @@ export class ArticleComponent implements OnInit, OnDestroy {
         this.article = response.article;
       }
     }, (error: any) => {
-      this.message.create('error', error.toString());
+      this.message.create('error', error.error.message);
     });
   }
 
   addRead() {
     this.api.addRead(this.addReadRequest).subscribe((response: any) => {
     }, (error: any) => {
-      this.message.create('error', error.toString());
+      this.message.create('error', error.error.message);
     });
   }
 
@@ -74,7 +74,7 @@ export class ArticleComponent implements OnInit, OnDestroy {
         this.comment = response.result;
       }
     }, (error: any) => {
-      this.message.create('error', error.toString());
+      this.message.create('error', error.error.message);
     });
   }
 
@@ -90,7 +90,7 @@ export class ArticleComponent implements OnInit, OnDestroy {
   replySubmit(item: any) {
     this.commentRequest.articleID = this.articleID;
     this.commentRequest.commentSerialNumber = item.commentID;
-    this.commentRequest.commentTitle = this.data.get('userName');
+    this.commentRequest.userID = this.data.get('userID');
     this.commentRequest.commentContent = this.replyValue;
     this.addComment();
   }
@@ -98,7 +98,7 @@ export class ArticleComponent implements OnInit, OnDestroy {
   commentSubmit() {
     this.commentRequest.articleID = this.articleID;
     this.commentRequest.commentSerialNumber = null;
-    this.commentRequest.commentTitle = this.data.get('userName');
+    this.commentRequest.userID = this.data.get('userID');
     this.commentRequest.commentContent = this.commentValue;
     this.addComment();
   }
@@ -112,7 +112,7 @@ export class ArticleComponent implements OnInit, OnDestroy {
         this.message.create('success', '评论添加成功');
       }
     }, (error: any) => {
-      this.message.create('error', error.toString());
+      this.message.create('error', error.error.message);
     });
   }
 }

@@ -63,7 +63,7 @@ export class LoginComponent implements OnInit {
         this.message.create('error', `密码错误，请重试`);
       }
     }, (error: any) => {
-      this.message.create('error', error.toString());
+      this.message.create('error', error.error.message);
     });
   }
 }
