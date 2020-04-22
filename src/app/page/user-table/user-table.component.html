@@ -4,33 +4,6 @@
     <button nz-button (click)="addArticle()">添加文章</button>
   </div>
   <div>
-    <!--<nz-table-->
-      <!--#ajaxTable-->
-      <!--nzShowSizeChanger-->
-      <!--[nzFrontPagination]="false"-->
-      <!--[nzData]="listOfData"-->
-      <!--[nzLoading]="loading"-->
-      <!--[nzTotal]="total"-->
-      <!--[(nzPageIndex)]="pageIndex"-->
-      <!--[(nzPageSize)]="pageSize"-->
-      <!--(nzPageIndexChange)="searchData()"-->
-      <!--(nzPageSizeChange)="searchData(true)"-->
-    <!--&gt;-->
-      <!--<thead (nzSortChange)="sort($event)" nzSingleSort>-->
-      <!--<tr>-->
-        <!--<th nzShowSort nzSortKey="name">Name</th>-->
-        <!--<th nzShowFilter [nzFilters]="filterGender" (nzFilterChange)="updateFilter($event)">Gender</th>-->
-        <!--<th nzShowSort nzSortKey="email"><span>Email</span></th>-->
-      <!--</tr>-->
-      <!--</thead>-->
-      <!--<tbody>-->
-      <!--<tr *ngFor="let data of ajaxTable.data">-->
-        <!--<td>{{ data.name.first }} {{ data.name.last }}</td>-->
-        <!--<td>{{ data.gender }}</td>-->
-        <!--<td>{{ data.email }}</td>-->
-      <!--</tr>-->
-      <!--</tbody>-->
-    <!--</nz-table>-->
     <nz-table #basicTable [nzData]="listData" [nzScroll]="{ x: '100%' }" [nzTotal]="total" [(nzPageIndex)]="pageIndex" [(nzPageSize)]="pageSize"
       (nzPageIndexChange)="getListData()" (nzPageSizeChange)="getListData(true)">
       <thead (nzSortChange)="sort($event)" nzSingleSort>
@@ -47,7 +20,7 @@
         <td>{{ data.articleRead }}</td>
         <td>{{ data.articleIssueTime }}</td>
         <td>
-          <a (click)="editArticle(data)" )>修改</a>
+          <a (click)="editArticle(data.articleID)">修改</a>
           <nz-divider nzType="vertical"></nz-divider>
           <a (click)="deleteArticle(data.articleID)">删除</a>
         </td>
@@ -57,4 +30,4 @@
   </div>
 </div>
 
-<app-user-article #article></app-user-article>
+<app-user-article #article [visible]="visible" (clearArticle)="clearArticle($event)"></app-user-article>

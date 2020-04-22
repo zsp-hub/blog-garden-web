@@ -1,4 +1,4 @@
-import {Component, OnDestroy, OnInit} from '@angular/core';
+import { Component, OnDestroy, OnInit} from '@angular/core';
 import {ActivatedRoute} from '@angular/router';
 import {ApiRequestServices} from '../../services/api-request.services';
 import {NzMessageService} from 'ng-zorro-antd';
@@ -6,6 +6,7 @@ import {CommentRequestEntity} from '../../entity/comment-request.entity';
 import {DataPersistenceServices} from '../../services/data-persistence.services';
 import {AddReadRequestEntity} from '../../entity/add-read-request.entity';
 import {Subscription, timer} from 'rxjs';
+import tinymce from 'tinymce';
 
 @Component({
   selector: 'app-article',
@@ -25,12 +26,21 @@ export class ArticleComponent implements OnInit, OnDestroy {
   timer$ = timer(60000);
   timerSub: Subscription;
 
+  editorConfig = {
+    base_url: '/tinymce',
+    theme: 'silver',
+    toolbar: false,
+    menubar: false,
+    height: 700
+  };
+
   constructor(
     private route: ActivatedRoute,
     private api: ApiRequestServices,
     private message: NzMessageService,
     private data: DataPersistenceServices
   ) { }
+
 
   ngOnInit() {
     this.route.paramMap.subscribe(params => {
@@ -43,7 +53,6 @@ export class ArticleComponent implements OnInit, OnDestroy {
     this.addReadRequest.articleID = this.articleID;
 
     this.timerSub = this.timer$.subscribe(n => this.addRead());
-
   }
 
   ngOnDestroy() {
@@ -80,6 +89,10 @@ export class ArticleComponent implements OnInit, OnDestroy {
 
   reply(item: any) {
     item.reply = true;
+  }
+
+  unfold(item: any) {
+    item.unfold = true;
   }
 
   replyClose(item: any) {

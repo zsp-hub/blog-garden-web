@@ -13,6 +13,7 @@ import {UserArticleComponent} from '../user-article/user-article.component';
 export class UserTableComponent implements OnInit {
 
   @ViewChild('article', { static: false }) article: UserArticleComponent;
+  visible = false;
 
   articleListRequest: ArticleListRequestEntity = new ArticleListRequestEntity();
   userID: number = null;
@@ -38,11 +39,20 @@ export class UserTableComponent implements OnInit {
   }
 
   addArticle() {
-    this.article.addArticle();
+    this.visible = true;
+    this.article.openAddArticle();
   }
 
-  editArticle(item: any) {
-    this.article.editArticle(item);
+  editArticle(articleID: number) {
+    this.visible = true;
+    this.article.openEditArticle(articleID);
+  }
+
+  clearArticle(callback: boolean) {
+    this.visible = false;
+    if (callback) {
+      this.getListData();
+    }
   }
 
   sort(sort: { key: string; value: string }): void {

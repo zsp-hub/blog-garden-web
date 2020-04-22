@@ -17,7 +17,7 @@ import { QueryComponent } from './page/guery/query.component';
 import { LoginComponent } from './page/login/login.component';
 
 import { NzIconModule } from 'ng-zorro-antd/icon';
-import { UserOutline, LockOutline, HistoryOutline , ReadOutline, FileOutline} from '@ant-design/icons-angular/icons';
+import { UserOutline, LockOutline, HistoryOutline , ReadOutline, FileOutline, BellOutline} from '@ant-design/icons-angular/icons';
 import { IconDefinition } from '@ant-design/icons-angular';
 import { ListComponent } from './page/list/list.component';
 import { AutherInfoComponent } from './page/auther-info/auther-info.component';
@@ -29,8 +29,9 @@ import { UserInfoComponent } from './page/user-info/user-info.component';
 import { UserArticleComponent } from './page/user-article/user-article.component';
 import {EditorModule} from '@tinymce/tinymce-angular';
 import {ApiRequestServices} from './services/api-request.services';
+import { NoticeComponent } from './page/notice/notice.component';
 
-const icons: IconDefinition[] = [ UserOutline, LockOutline , HistoryOutline, ReadOutline, FileOutline];
+const icons: IconDefinition[] = [ UserOutline, LockOutline , HistoryOutline, ReadOutline, FileOutline, BellOutline];
 
 registerLocaleData(zh);
 
@@ -51,6 +52,7 @@ registerLocaleData(zh);
     UserTableComponent,
     UserInfoComponent,
     UserArticleComponent,
+    NoticeComponent,
   ],
   imports: [
     BrowserModule,

@@ -11,6 +11,10 @@ import { Router} from '@angular/router';
 export class NavigazioneComponent implements OnInit {
   private userID = 0;
   @ViewChild('query', { static: false }) query: QueryComponent;
+  visible = false;
+
+  noticeList = [];
+  count = 0;
 
   constructor(
     private data: DataPersistenceServices,
@@ -19,7 +23,6 @@ export class NavigazioneComponent implements OnInit {
 
   ngOnInit() {
     this.userID = this.data.get('userID');
-    this.userID = 1;
   }
 
   public logOut() {
@@ -30,6 +33,22 @@ export class NavigazioneComponent implements OnInit {
 
   public openQuery() {
     this.query.open();
+  }
+
+  public openNotice() {
+    this.visible = true;
+  }
+
+  public clearNotice(event) {
+    this.visible = false;
+    if (event) {
+      // 清除通知
+      this.count = 0;
+    }
+  }
+
+  public getNotice(){
+
   }
 
 }

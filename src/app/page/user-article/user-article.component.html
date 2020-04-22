@@ -1,19 +1,12 @@
-<div>
-  <nz-modal [(nzVisible)]="visible" [nzTitle]="title" (nzOnOk)="handleOk()" [nzClosable]="false" nzWidth="900">
+<div *ngIf="visible">
+  <nz-modal [nzVisible]="true" [nzTitle]="title" (nzOnOk)="handleOk()" (nzOnCancel)="handleCancel()" [nzClosable]="false" nzWidth="1000">
     <nz-divider nzText="文章标题"></nz-divider>
     <div>
-      <textarea nz-input placeholder="请输入标题" ></textarea>
+      <textarea nz-input placeholder="请输入标题" [(ngModel)]="articleRequest.articleTitle"></textarea>
     </div>
     <nz-divider nzText="文章内容"></nz-divider>
     <div>
-      <editor
-        apiKey="no-api-key"
-        [init]="{
-          height: 500,
-          plugins: 'link'
-        }"
-      >
-      </editor>
+      <editor [init]="editorConfig" [(ngModel)]="articleRequest.articleContent"></editor>
     </div>
   </nz-modal>
 </div>

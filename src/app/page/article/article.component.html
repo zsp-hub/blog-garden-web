@@ -9,12 +9,9 @@
         <i nz-icon nzType="history" style="margin-right: 8px;"></i> {{ article.articleIssueTime }}
       </p>
       <nz-divider></nz-divider>
-      <p nz-paragraph>
-        {{ article.articleCountent}}
-      </p>
+      <editor disabled="true" [ngModel]="article.articleContent" [init]="editorConfig"></editor>
     </article>
   </div>
-
 
   <div class="article-margin">
     <nz-divider nzText="评论"></nz-divider>
@@ -25,9 +22,11 @@
         <nz-comment-content>
           <p>{{ item.commentContent }}</p>
         </nz-comment-content>
-
-        <nz-comment-action><i (click)="reply(item)">回复</i></nz-comment-action>
-
+        <nz-comment-action>
+          <i (click)="reply(item)">回复</i>
+          <i style="margin-left: 10px" *ngIf="item.children && item.children.length && !item.unfold" (click)="unfold(item)">展开</i>
+        </nz-comment-action>
+        <!--回复框-->
         <nz-comment *ngIf="item.reply">
           <nz-avatar nz-comment-avatar nzIcon="user"></nz-avatar>
           <nz-comment-content>
@@ -44,8 +43,8 @@
             </nz-form-item>
           </nz-comment-content>
         </nz-comment>
-
-        <ng-container *ngIf="item.children && item.children.length">
+        <!--子项-->
+        <ng-container *ngIf="item.children && item.children.length && item.unfold">
           <ng-template ngFor let-child [ngForOf]="item.children">
             <ng-template [ngTemplateOutlet]="commentTemplateRef" [ngTemplateOutletContext]="{ item: child }"></ng-template>
           </ng-template>
