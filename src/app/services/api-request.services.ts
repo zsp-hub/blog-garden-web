@@ -7,6 +7,7 @@ import {CommentRequestEntity} from '../entity/comment-request.entity';
 import {AddReadRequestEntity} from '../entity/add-read-request.entity';
 import {UserInfoRequestEntity} from '../entity/user-info-request.entity';
 import {ArticleRequestEntity} from '../entity/article-request.entity';
+import {NoticeRequestEntity} from '../entity/notice-request.entity';
 
 
 @Injectable({
@@ -70,5 +71,25 @@ export class ApiRequestServices {
   addComment(commentRequest: CommentRequestEntity) {
     const api: string = ApiBaseServices.API_ENDPOINT + 'comment';
     return this.http.post(api, commentRequest);
+  }
+
+  getNotice(userID: number) {
+    const api: string = ApiBaseServices.API_ENDPOINT + 'notice';
+    return this.http.get(api + '?userID=' + userID);
+  }
+
+  addNotice(noticeRequest: NoticeRequestEntity) {
+    const api: string = ApiBaseServices.API_ENDPOINT + 'notice';
+    return this.http.post(api, noticeRequest);
+  }
+
+  updateNotice(noticeRequest: { userID: number }) {
+    const api: string = ApiBaseServices.API_ENDPOINT + 'notice';
+    return this.http.put(api, noticeRequest);
+  }
+
+  deleteNotice(userID: number) {
+    const api: string = ApiBaseServices.API_ENDPOINT + 'notice';
+    return this.http.delete(api + '?userID=' + userID);
   }
 }

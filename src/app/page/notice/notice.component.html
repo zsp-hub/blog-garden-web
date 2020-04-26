@@ -1,0 +1,12 @@
+<div>
+  <nz-modal [nzVisible]="visible" (nzOnOk)="handleOk()" (nzOnCancel)="handleCancel()" [nzClosable]="false" nzWidth="300">
+    <nz-divider nzText="通知"></nz-divider>
+    <div class="list-margin">
+      <nz-list [nzDataSource]="dataList" [nzRenderItem]="item">
+        <ng-template #item let-item>
+          <p>{{item.notice}}</p>
+        </ng-template>
+      </nz-list>
+    </div>
+  </nz-modal>
+</div>

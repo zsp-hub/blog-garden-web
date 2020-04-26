@@ -6,7 +6,8 @@ import {CommentRequestEntity} from '../../entity/comment-request.entity';
 import {DataPersistenceServices} from '../../services/data-persistence.services';
 import {AddReadRequestEntity} from '../../entity/add-read-request.entity';
 import {Subscription, timer} from 'rxjs';
-import tinymce from 'tinymce';
+import {NoticeRequestEntity} from '../../entity/notice-request.entity';
+
 
 @Component({
   selector: 'app-article',
@@ -23,8 +24,10 @@ export class ArticleComponent implements OnInit, OnDestroy {
   commentRequest: CommentRequestEntity = new  CommentRequestEntity();
   addReadRequest: AddReadRequestEntity = new  AddReadRequestEntity();
 
-  timer$ = timer(60000);
+  $timer = timer(60000);
   timerSub: Subscription;
+
+  userID = this.data.get('userID');
 
   editorConfig = {
     base_url: '/tinymce',
@@ -49,10 +52,10 @@ export class ArticleComponent implements OnInit, OnDestroy {
     this.getArticle();
     this.getComment();
 
-    this.addReadRequest.userID = this.data.get('userID');
+    this.addReadRequest.userID = this.userID;
     this.addReadRequest.articleID = this.articleID;
 
-    this.timerSub = this.timer$.subscribe(n => this.addRead());
+    this.timerSub = this.$timer.subscribe(n => this.addRead());
   }
 
   ngOnDestroy() {
@@ -103,7 +106,7 @@ export class ArticleComponent implements OnInit, OnDestroy {
   replySubmit(item: any) {
     this.commentRequest.articleID = this.articleID;
     this.commentRequest.commentSerialNumber = item.commentID;
-    this.commentRequest.userID = this.data.get('userID');
+    this.commentRequest.userID = this.userID;
     this.commentRequest.commentContent = this.replyValue;
     this.addComment();
   }
@@ -111,7 +114,7 @@ export class ArticleComponent implements OnInit, OnDestroy {
   commentSubmit() {
     this.commentRequest.articleID = this.articleID;
     this.commentRequest.commentSerialNumber = null;
-    this.commentRequest.userID = this.data.get('userID');
+    this.commentRequest.userID = this.userID;
     this.commentRequest.commentContent = this.commentValue;
     this.addComment();
   }
@@ -122,10 +125,23 @@ export class ArticleComponent implements OnInit, OnDestroy {
         this.replyValue = null;
         this.commentValue = null;
         this.getComment();
+        this.addNotice();
         this.message.create('success', '评论添加成功');
       }
     }, (error: any) => {
       this.message.create('error', error.error.message);
     });
+  }
+
+  addNotice() {
+    if (this.article.userID !== this.userID) {
+      const noticeReques = new NoticeRequestEntity();
+      noticeReques.userID = this.article.userID;
+      noticeReques.notice = this.data.get('userName') + '在文章：' + this.article.articleTitle + '中评论了你';
+      this.api.addNotice(noticeReques).subscribe((response: any) => {
+      }, (error: any) => {
+        this.message.create('error', error.error.message);
+      });
+    }
   }
 }
