@@ -137,7 +137,7 @@ export class ArticleComponent implements OnInit, OnDestroy {
     if (this.article.userID !== this.userID) {
       const noticeReques = new NoticeRequestEntity();
       noticeReques.userID = this.article.userID;
-      noticeReques.notice = this.data.get('userName') + '在文章：' + this.article.articleTitle + '中评论了你';
+      noticeReques.notice = this.data.get('userName') + '在文章：' + this.article.articleTitle + '中评论了你 |::|' + this.article.articleID;
       this.api.addNotice(noticeReques).subscribe((response: any) => {
       }, (error: any) => {
         this.message.create('error', error.error.message);

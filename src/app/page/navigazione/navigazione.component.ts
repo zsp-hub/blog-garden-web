@@ -12,7 +12,6 @@ import {NzMessageService} from 'ng-zorro-antd/message';
   styleUrls: ['./navigazione.component.css']
 })
 export class NavigazioneComponent implements OnInit, OnDestroy {
-  private userID = 0;
   @ViewChild('query', { static: false }) query: QueryComponent;
   visible = false;
 
@@ -30,8 +29,6 @@ export class NavigazioneComponent implements OnInit, OnDestroy {
   ) { }
 
   ngOnInit() {
-    this.userID = this.data.get('userID');
-
     this.interval = setInterval(i => this.getNotice(), 1000 * 10);
   }
 
@@ -63,18 +60,25 @@ export class NavigazioneComponent implements OnInit, OnDestroy {
   }
 
   public getNotice() {
-    this.api.getNotice(this.userID).subscribe((response: any) => {
-      if (response.success) {
-        this.noticeList = response.result;
-        this.count = this.noticeList.filter( n => n.noticeStatus === 'NV').length;
-      }
-    }, (error: any) => {
-      this.message.create('error', error.error.message);
-    });
+    if (this.data.get('userID')) {
+      this.api.getNotice(this.data.get('userID')).subscribe((response: any) => {
+        if (response.success) {
+          this.noticeList = response.result;
+          this.noticeList.forEach(n => {
+            const notice = n.notice.split('|::|');
+            n._notice = notice[0];
+            n._articleID = notice[1];
+          });
+          this.count = this.noticeList.filter( n => n.noticeStatus === 'NV').length;
+        }
+      }, (error: any) => {
+        this.message.create('error', error.error.message);
+      });
+    }
   }
 
   public updateNotice() {
-    this.api.updateNotice({userID: this.userID}).subscribe((response: any) => {
+    this.api.updateNotice({userID: this.data.get('userID')}).subscribe((response: any) => {
       if (response.success) {
         this.getNotice();
       }
@@ -84,7 +88,7 @@ export class NavigazioneComponent implements OnInit, OnDestroy {
   }
 
   public deleteNotice() {
-    this.api.deleteNotice(this.userID).subscribe((response: any) => {
+    this.api.deleteNotice(this.data.get('userID')).subscribe((response: any) => {
       if (response.success) {
         this.getNotice();
       }

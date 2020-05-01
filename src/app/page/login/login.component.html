@@ -1,10 +1,10 @@
-<nz-modal [nzVisible]="visible" [nzFooter]=null [nzClosable]="false" nzWidth="350">
+<nz-modal [nzVisible]="visible" [nzFooter]=null [nzClosable]="false" nzWidth="350" *ngIf="!isRegistered">
   <nz-divider nzText="请登录"></nz-divider>
   <form nz-form [formGroup]="validateForm" class="login-form" (ngSubmit)="submitForm()">
     <nz-form-item>
-      <nz-form-control nzErrorTip="请输入你的账号">
-        <nz-input-group nzPrefixIcon="user" >
-          <input type="text" nz-input formControlName="userAccount" placeholder="账号" />
+      <nz-form-control nzErrorTip="邮箱格式错误">
+        <nz-input-group nzPrefixIcon="mail" >
+          <input type="text" nz-input formControlName="userAccount" placeholder="邮箱" />
         </nz-input-group>
       </nz-form-control>
     </nz-form-item>
@@ -18,9 +18,48 @@
     <nz-form-item>
       <nz-form-control>
         <button style="width: 100%" nz-button class="login-form-button" [nzType]="'primary'">登录</button>
-        <a>注册账户</a>
+        <a (click)="openRegistered()">注册账户</a>
       </nz-form-control>
     </nz-form-item>
   </form>
 </nz-modal>
 
+<nz-modal [nzVisible]="visible" [nzFooter]=null [nzClosable]="false" nzWidth="350" *ngIf="isRegistered">
+  <nz-divider nzText="注册"></nz-divider>
+  <form nz-form [formGroup]="registeredValidateForm" class="login-form" (ngSubmit)="registeredSubmitForm()">
+    <nz-form-item>
+      <nz-form-control nzErrorTip="邮箱格式错误">
+        <nz-input-group nzPrefixIcon="mail" >
+          <input type="text" nz-input formControlName="userAccount" placeholder="邮箱" />
+        </nz-input-group>
+      </nz-form-control>
+    </nz-form-item>
+    <nz-form-item>
+      <nz-form-control nzErrorTip="请输入你的名称">
+        <nz-input-group nzPrefixIcon="user" >
+          <input type="text" nz-input formControlName="userName" placeholder="名称" />
+        </nz-input-group>
+      </nz-form-control>
+    </nz-form-item>
+    <nz-form-item>
+      <nz-form-control nzErrorTip="请输入你的密码">
+        <nz-input-group nzPrefixIcon="lock" >
+          <input type="password" nz-input formControlName="usrePassword" placeholder="密码" />
+        </nz-input-group>
+      </nz-form-control>
+    </nz-form-item>
+    <nz-form-item>
+      <nz-form-control nzErrorTip="密码不一致">
+        <nz-input-group nzPrefixIcon="lock" >
+          <input type="password" nz-input formControlName="reUsrePassword" placeholder="确认密码" />
+        </nz-input-group>
+      </nz-form-control>
+    </nz-form-item>
+    <nz-form-item>
+      <nz-form-control>
+        <button style="width: 100%" nz-button class="login-form-button" [nzType]="'primary'">注册</button>
+        <a (click)="closeRegistered()">取消注册</a>
+      </nz-form-control>
+    </nz-form-item>
+  </form>
+</nz-modal>

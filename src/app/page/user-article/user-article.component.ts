@@ -3,6 +3,9 @@ import {ArticleRequestEntity} from '../../entity/article-request.entity';
 import {ApiRequestServices} from '../../services/api-request.services';
 import {NzMessageService} from 'ng-zorro-antd';
 import {DataPersistenceServices} from '../../services/data-persistence.services';
+import * as qiniu from 'qiniu-js';
+import {ApiBaseServices} from '../../services/api-base.services';
+
 
 @Component({
   selector: 'app-user-article',
@@ -10,6 +13,9 @@ import {DataPersistenceServices} from '../../services/data-persistence.services'
   styleUrls: ['./user-article.component.css']
 })
 export class UserArticleComponent implements OnInit {
+
+  private static keys = '';
+
   @Output()
   clearArticle = new EventEmitter<boolean>();
 
@@ -22,6 +28,7 @@ export class UserArticleComponent implements OnInit {
 
   // 富文本编辑器
   editorConfig = {
+    id: '',
     base_url: '/tinymce',
     theme: 'silver',
     menubar: false,
@@ -30,7 +37,41 @@ export class UserArticleComponent implements OnInit {
     // tslint:disable-next-line:max-line-length
     toolbar: 'code undo redo restoredraft | cut copy paste pastetext | forecolor backcolor bold italic underline strikethrough link anchor | alignleft aligncenter alignright alignjustify outdent indent | styleselect formatselect fontselect fontsizeselect | bullist numlist | blockquote subscript superscript removeformat | table image charmap emoticons hr pagebreak insertdatetime | fullscreen',
     height: 500,
-    images_upload_handler(blobInfo, success, failure) {}
+    images_upload_handler(blobInfo, success, failure) {
+      // tslint:disable-next-line:one-variable-per-declaration
+      let xhr, formData;
+
+      xhr = new XMLHttpRequest();
+
+      xhr.open('POST', ApiBaseServices.API_ENDPOINT + 'img');
+
+      // tslint:disable-next-line:only-arrow-functions
+      xhr.onload = function() {
+        let json;
+
+        if (xhr.status !== 200) {
+          failure('HTTP Error: ' + xhr.status);
+          return;
+        }
+
+        json = JSON.parse(xhr.responseText);
+
+        if ( UserArticleComponent.keys === undefined || UserArticleComponent.keys === null || UserArticleComponent.keys === '') {
+          UserArticleComponent.keys += json.key;
+        } else {
+          if (UserArticleComponent.keys.indexOf(json.key) === -1 ) {
+            UserArticleComponent.keys += '::' + json.key;
+          }
+        }
+
+        success(json.path + '/' + json.key);
+      };
+
+      formData = new FormData();
+      formData.append('file', blobInfo.blob(), blobInfo.filename());
+
+      xhr.send(formData);
+    }
   };
 
   constructor(
@@ -53,13 +94,11 @@ export class UserArticleComponent implements OnInit {
   }
 
   handleCancel() {
-    if (this.articleID === undefined) {
-      // 新增处理
-    }
     this.clear(false);
   }
 
   handleOk() {
+    this.articleRequest.pictureCatalog = UserArticleComponent.keys;
     if (this.articleID === undefined) {
       this.articleRequest.userID = this.data.get('userID');
       this.addArticle();
@@ -74,11 +113,14 @@ export class UserArticleComponent implements OnInit {
     this.articleID = undefined;
     this.title = '';
     this.articleRequest = new ArticleRequestEntity();
+    UserArticleComponent.keys = '';
   }
+
   getArticle() {
     this.api.getArticle(this.articleID).subscribe((response: any) => {
       if (response.success) {
         this.articleRequest = response.article;
+        UserArticleComponent.keys = this.articleRequest.pictureCatalog;
       }
     }, (error: any) => {
       this.message.create('error', error.error.message);

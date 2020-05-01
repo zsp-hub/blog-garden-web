@@ -1,12 +1,19 @@
 <div>
-  <nz-modal [nzVisible]="visible" (nzOnOk)="handleOk()" (nzOnCancel)="handleCancel()" [nzClosable]="false" nzWidth="300">
+  <nz-modal [nzVisible]="visible" (nzOnCancel)="handleCancel()" [nzClosable]="false" nzWidth="400">
     <nz-divider nzText="通知"></nz-divider>
-    <div class="list-margin">
-      <nz-list [nzDataSource]="dataList" [nzRenderItem]="item">
-        <ng-template #item let-item>
-          <p>{{item.notice}}</p>
-        </ng-template>
-      </nz-list>
+<!--    <div class="list-margin">-->
+<!--      <nz-list [nzDataSource]="dataList" [nzRenderItem]="item">-->
+<!--        <ng-template #item let-item>-->
+<!--          <p><a [routerLink]="['/blog/article', item._articleID]">{{ item._notice }}</a></p>-->
+<!--        </ng-template>-->
+<!--      </nz-list>-->
+<!--    </div>-->
+    <nz-list nzBordered nzSize="small">
+      <nz-list-item *ngFor="let item of dataList"><a [routerLink]="['/blog/article', item._articleID]">{{ item._notice }}</a></nz-list-item>
+    </nz-list>
+    <div *nzModalFooter>
+      <button nz-button nzType="default" (click)="handleCancel()">确定</button>
+      <button nz-button nzType="primary" (click)="handleOk()">清空</button>
     </div>
   </nz-modal>
 </div>

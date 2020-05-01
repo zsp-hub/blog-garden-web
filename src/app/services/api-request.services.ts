@@ -23,6 +23,11 @@ export class ApiRequestServices {
     return this.http.post(api, loginRequest);
   }
 
+  registered(loginRequest: LoginRequestEntity) {
+    const api: string = ApiBaseServices.API_ENDPOINT + 'register';
+    return this.http.post(api, loginRequest);
+  }
+
   query(articleListRequest: ArticleListRequestEntity) {
     const api: string = ApiBaseServices.API_ENDPOINT + 'query';
     return this.http.post(api, articleListRequest);
@@ -92,4 +97,10 @@ export class ApiRequestServices {
     const api: string = ApiBaseServices.API_ENDPOINT + 'notice';
     return this.http.delete(api + '?userID=' + userID);
   }
+
+  uploadImg(file: any) {
+    const api: string = ApiBaseServices.API_ENDPOINT + 'img';
+    return this.http.post(api, file);
+  }
+
 }
