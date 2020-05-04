@@ -18,6 +18,8 @@ export class NavigazioneComponent implements OnInit, OnDestroy {
   noticeList = [];
   count = 0;
 
+  userID = this.data.get('userID');
+
   interval: any;
   private $interval: any;
 
@@ -29,6 +31,7 @@ export class NavigazioneComponent implements OnInit, OnDestroy {
   ) { }
 
   ngOnInit() {
+    this.getNotice();
     this.interval = setInterval(i => this.getNotice(), 1000 * 10);
   }
 

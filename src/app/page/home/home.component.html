@@ -18,10 +18,14 @@
     <!--排行榜-->
     <nz-tabset>
       <nz-tab nzTitle="新增文章" (nzClick)="newArticleList()">
-        <app-list [listData] = "listData"></app-list>
+        <div class="slider">
+          <app-list [listData] = "listData"></app-list>
+        </div>
       </nz-tab>
       <nz-tab nzTitle="热点文章" (nzClick)="hotspotArticleList()">
-        <app-list [listData] = "listData"></app-list>
+        <div class="slider">
+          <app-list [listData] = "listData"></app-list>
+        </div>
       </nz-tab>
     </nz-tabset>
   </div>

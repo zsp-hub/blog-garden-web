@@ -1,0 +1,8 @@
+.slider {
+  overflow-y:auto;
+  max-height: 300px;
+}
+
+::-webkit-scrollbar{
+  display: none;
+}

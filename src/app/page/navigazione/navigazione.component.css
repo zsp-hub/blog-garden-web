@@ -8,6 +8,9 @@
   margin-top: 10px;
 }
 
-.nav-length{
-  margin-left: 80%;
+.nav-flex{
+  display:flex;
+  flex-direction:row;
+  flex-wrap: nowrap;
+  justify-content: space-between;
 }

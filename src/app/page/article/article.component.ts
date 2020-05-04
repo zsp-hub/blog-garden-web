@@ -30,11 +30,12 @@ export class ArticleComponent implements OnInit, OnDestroy {
   userID = this.data.get('userID');
 
   editorConfig = {
-    base_url: '/tinymce',
-    theme: 'silver',
+    apiKey: '',
+    // base_url: '/tinymce',
+    // theme: 'silver',
     toolbar: false,
     menubar: false,
-    height: 700
+    height: 500
   };
 
   constructor(
@@ -52,7 +53,7 @@ export class ArticleComponent implements OnInit, OnDestroy {
     this.getArticle();
     this.getComment();
 
-    this.addReadRequest.userID = this.userID;
+    this.addReadRequest.userID = this.data.get('userID');
     this.addReadRequest.articleID = this.articleID;
 
     this.timerSub = this.$timer.subscribe(n => this.addRead());
@@ -106,7 +107,7 @@ export class ArticleComponent implements OnInit, OnDestroy {
   replySubmit(item: any) {
     this.commentRequest.articleID = this.articleID;
     this.commentRequest.commentSerialNumber = item.commentID;
-    this.commentRequest.userID = this.userID;
+    this.commentRequest.userID = this.data.get('userID');
     this.commentRequest.commentContent = this.replyValue;
     this.addComment();
   }
@@ -114,7 +115,7 @@ export class ArticleComponent implements OnInit, OnDestroy {
   commentSubmit() {
     this.commentRequest.articleID = this.articleID;
     this.commentRequest.commentSerialNumber = null;
-    this.commentRequest.userID = this.userID;
+    this.commentRequest.userID = this.data.get('userID');
     this.commentRequest.commentContent = this.commentValue;
     this.addComment();
   }
@@ -134,7 +135,7 @@ export class ArticleComponent implements OnInit, OnDestroy {
   }
 
   addNotice() {
-    if (this.article.userID !== this.userID) {
+    if (this.article.userID !== this.data.get('userID')) {
       const noticeReques = new NoticeRequestEntity();
       noticeReques.userID = this.article.userID;
       noticeReques.notice = this.data.get('userName') + '在文章：' + this.article.articleTitle + '中评论了你 |::|' + this.article.articleID;

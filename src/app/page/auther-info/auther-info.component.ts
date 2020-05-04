@@ -28,7 +28,7 @@ export class AutherInfoComponent implements OnInit {
   }
 
   public open(userID: number, userName: string): void {
-    this.userName = userName;
+    this.userName = this.data.get('userName');
     this.getUserInfo(userID);
     this.visible = true;
   }

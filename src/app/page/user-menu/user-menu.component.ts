@@ -8,13 +8,11 @@ import {DataPersistenceServices} from '../../services/data-persistence.services'
 })
 export class UserMenuComponent implements OnInit {
 
-  userID = 0;
+  userID = this.data.get('userID');
 
   constructor(private data: DataPersistenceServices) { }
 
   ngOnInit() {
-    this.userID = this.data.get('userID');
-    this.userID = 1;
   }
 
 }

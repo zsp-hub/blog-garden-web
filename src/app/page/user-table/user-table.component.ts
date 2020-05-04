@@ -16,7 +16,6 @@ export class UserTableComponent implements OnInit {
   visible = false;
 
   articleListRequest: ArticleListRequestEntity = new ArticleListRequestEntity();
-  userID: number = null;
   listData = [];
 
   pageIndex: number = null;
@@ -31,8 +30,6 @@ export class UserTableComponent implements OnInit {
   ) { }
 
   ngOnInit() {
-    this.userID = this.data.get('userID');
-    this.articleListRequest.userID = this.userID;
     this.pageIndex = 1;
     this.pageSize = 10;
     this.getListData();
@@ -70,6 +67,7 @@ export class UserTableComponent implements OnInit {
     if (reset) {
       this.pageIndex = 1;
     }
+    this.articleListRequest.userID = this.data.get('userID');
     this.articleListRequest.pageInfo.pageNum = this.pageIndex;
     this.articleListRequest.pageInfo.pageSize = this.pageSize;
     this.articleListRequest.pageInfo.orderBy = this.orderBy;

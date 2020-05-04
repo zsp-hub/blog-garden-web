@@ -10,7 +10,6 @@ import {UserInfoRequestEntity} from '../../entity/user-info-request.entity';
   styleUrls: ['./user-info.component.css']
 })
 export class UserInfoComponent implements OnInit {
-  userID: number;
   userIntro: string = null;
   userInfoRequest: UserInfoRequestEntity = new UserInfoRequestEntity();
   userIssue = 0;
@@ -23,8 +22,7 @@ export class UserInfoComponent implements OnInit {
   ) { }
 
   ngOnInit() {
-    this.userID = this.data.get('userID');
-    this.getUserInfo(this.userID);
+    this.getUserInfo(this.data.get('userID'));
   }
 
   getUserInfo(userID: number) {
@@ -41,11 +39,11 @@ export class UserInfoComponent implements OnInit {
 
   updateUserInfo() {
     this.userInfoRequest.userIntro = this.userIntro;
-    this.userInfoRequest.userID = this.userID;
+    this.userInfoRequest.userID = this.data.get('userID');
     this.api.updateUserInfo(this.userInfoRequest).subscribe((response: any) => {
       if (response.success) {
         this.message.create('success', '修改成功');
-        this.getUserInfo(this.userID);
+        this.getUserInfo(this.data.get('userID'));
       }
     }, (error: any) => {
       this.message.create('error', error.error.message);
