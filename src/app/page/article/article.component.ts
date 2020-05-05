@@ -29,6 +29,8 @@ export class ArticleComponent implements OnInit, OnDestroy {
 
   userID = this.data.get('userID');
 
+  item: any;
+
   editorConfig = {
     // base_url: '/tinymce',
     // theme: 'silver',
@@ -108,6 +110,7 @@ export class ArticleComponent implements OnInit, OnDestroy {
     this.commentRequest.commentSerialNumber = item.commentID;
     this.commentRequest.userID = this.data.get('userID');
     this.commentRequest.commentContent = this.replyValue;
+    this.item = item;
     this.addComment();
   }
 
@@ -134,9 +137,17 @@ export class ArticleComponent implements OnInit, OnDestroy {
   }
 
   addNotice() {
-    if (this.article.userID !== this.data.get('userID')) {
+    if (this.article.userID !== this.data.get('userID') && (this.item.userName === undefined || this.item.userName === null)) {
       const noticeReques = new NoticeRequestEntity();
       noticeReques.userID = this.article.userID;
+      noticeReques.notice = this.data.get('userName') + '在文章：' + this.article.articleTitle + '中评论了你 |::|' + this.article.articleID;
+      this.api.addNotice(noticeReques).subscribe((response: any) => {
+      }, (error: any) => {
+        this.message.create('error', error.error.message);
+      });
+    } else if (this.item.userName !== undefined && this.item.userName !== null && this.item.userID !== this.data.get('userID')) {
+      const noticeReques = new NoticeRequestEntity();
+      noticeReques.userID = this.item.userID;
       noticeReques.notice = this.data.get('userName') + '在文章：' + this.article.articleTitle + '中评论了你 |::|' + this.article.articleID;
       this.api.addNotice(noticeReques).subscribe((response: any) => {
       }, (error: any) => {
