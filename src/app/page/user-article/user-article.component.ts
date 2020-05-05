@@ -28,7 +28,6 @@ export class UserArticleComponent implements OnInit {
 
   // 富文本编辑器
   editorConfig = {
-    apiKey: '',
     // base_url: '/tinymce',
     // theme: 'silver',
     menubar: false,
@@ -105,7 +104,6 @@ export class UserArticleComponent implements OnInit {
     } else {
       this.updateArticle();
     }
-    this.clear(true);
   }
 
   clear(callback: boolean) {
@@ -131,6 +129,7 @@ export class UserArticleComponent implements OnInit {
     this.api.addArticle(this.articleRequest).subscribe((response: any) => {
       if (response.success) {
         this.message.create('success', '文章添加成功');
+        this.clear(true);
       }
     }, (error: any) => {
       this.message.create('error', error.error.message);
@@ -141,6 +140,7 @@ export class UserArticleComponent implements OnInit {
     this.api.updateArticle(this.articleRequest).subscribe((response: any) => {
       if (response.success) {
         this.message.create('success', '文章修改成功');
+        this.clear(true);
       }
     }, (error: any) => {
       this.message.create('error', error.error.message);

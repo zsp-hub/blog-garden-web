@@ -30,7 +30,6 @@ export class ArticleComponent implements OnInit, OnDestroy {
   userID = this.data.get('userID');
 
   editorConfig = {
-    apiKey: '',
     // base_url: '/tinymce',
     // theme: 'silver',
     toolbar: false,
