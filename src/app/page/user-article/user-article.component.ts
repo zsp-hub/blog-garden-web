@@ -34,7 +34,7 @@ export class UserArticleComponent implements OnInit {
     // tslint:disable-next-line:max-line-length
     plugins: 'searchreplace autolink directionality visualblocks visualchars fullscreen image link template code codesample table charmap hr pagebreak nonbreaking anchor insertdatetime advlist lists wordcount imagetools textpattern help emoticons autosave',
     // tslint:disable-next-line:max-line-length
-    toolbar: 'code undo redo restoredraft | cut copy paste pastetext | forecolor backcolor bold italic underline strikethrough link anchor | alignleft aligncenter alignright alignjustify outdent indent | styleselect formatselect fontselect fontsizeselect | bullist numlist | blockquote subscript superscript removeformat | table image charmap emoticons hr pagebreak insertdatetime | fullscreen',
+    toolbar: 'code undo redo restoredraft | cut copy paste pastetext | forecolor backcolor bold italic underline strikethrough link anchor | alignleft aligncenter alignright alignjustify outdent indent | styleselect fontselect fontsizeselect | bullist numlist | blockquote subscript superscript removeformat | table image charmap emoticons hr pagebreak insertdatetime | fullscreen',
     height: 500,
     images_upload_handler(blobInfo, success, failure) {
       // tslint:disable-next-line:one-variable-per-declaration

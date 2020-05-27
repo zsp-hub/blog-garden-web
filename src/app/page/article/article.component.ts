@@ -29,7 +29,7 @@ export class ArticleComponent implements OnInit, OnDestroy {
 
   userID = this.data.get('userID');
 
-  item: any;
+  item: any = null;
 
   editorConfig = {
     // base_url: '/tinymce',
@@ -50,9 +50,9 @@ export class ArticleComponent implements OnInit, OnDestroy {
   ngOnInit() {
     this.route.paramMap.subscribe(params => {
       this.articleID = params.get('articleID');
+      this.getArticle();
+      this.getComment();
     });
-    this.getArticle();
-    this.getComment();
 
     this.addReadRequest.userID = this.data.get('userID');
     this.addReadRequest.articleID = this.articleID;
@@ -137,22 +137,26 @@ export class ArticleComponent implements OnInit, OnDestroy {
   }
 
   addNotice() {
-    if (this.article.userID !== this.data.get('userID') && (this.item.userName === undefined || this.item.userName === null)) {
-      const noticeReques = new NoticeRequestEntity();
-      noticeReques.userID = this.article.userID;
-      noticeReques.notice = this.data.get('userName') + '在文章：' + this.article.articleTitle + '中评论了你 |::|' + this.article.articleID;
-      this.api.addNotice(noticeReques).subscribe((response: any) => {
-      }, (error: any) => {
-        this.message.create('error', error.error.message);
-      });
-    } else if (this.item.userName !== undefined && this.item.userName !== null && this.item.userID !== this.data.get('userID')) {
-      const noticeReques = new NoticeRequestEntity();
-      noticeReques.userID = this.item.userID;
-      noticeReques.notice = this.data.get('userName') + '在文章：' + this.article.articleTitle + '中评论了你 |::|' + this.article.articleID;
-      this.api.addNotice(noticeReques).subscribe((response: any) => {
-      }, (error: any) => {
-        this.message.create('error', error.error.message);
-      });
+    const noticeReques = new NoticeRequestEntity();
+    if (this.item === null) {
+      if (this.article.userID !== this.data.get('userID')) {
+        noticeReques.userID = this.article.userID;
+        noticeReques.notice = this.data.get('userName') + '在文章：' + this.article.articleTitle + '中评论了你 |::|' + this.article.articleID;
+        this.api.addNotice(noticeReques).subscribe((response: any) => {
+        }, (error: any) => {
+          this.message.create('error', error.error.message);
+        });
+      }
+    } else {
+      if (this.item.userID !== this.data.get('userID')) {
+        noticeReques.userID = this.item.userID;
+        noticeReques.notice = this.data.get('userName') + '在文章：' + this.article.articleTitle + '中评论了你 |::|' + this.article.articleID;
+        this.api.addNotice(noticeReques).subscribe((response: any) => {
+        }, (error: any) => {
+          this.message.create('error', error.error.message);
+        });
+      }
     }
+    this.item = null;
   }
 }
