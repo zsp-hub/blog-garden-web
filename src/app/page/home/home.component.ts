@@ -3,6 +3,7 @@ import {ApiRequestServices} from '../../services/api-request.services';
 import {ArticleListRequestEntity} from '../../entity/article-list-request.entity';
 import {NzMessageService} from 'ng-zorro-antd';
 import {DataPersistenceServices} from '../../services/data-persistence.services';
+import {ApiBaseServices} from '../../services/api-base.services';
 
 @Component({
   selector: 'app-home',
@@ -12,9 +13,9 @@ import {DataPersistenceServices} from '../../services/data-persistence.services'
 export class HomeComponent implements OnInit {
 
   array = [
-    'http://q9e43yewd.bkt.clouddn.com/轮播图1',
-    'http://q9e43yewd.bkt.clouddn.com/轮播图2',
-    'http://q9e43yewd.bkt.clouddn.com/轮播图3'
+    ApiBaseServices.DOMAI_NAME + '轮播图1',
+    ApiBaseServices.DOMAI_NAME + '轮播图2',
+    ApiBaseServices.DOMAI_NAME + '轮播图3'
   ];
 
   articleListRequest: ArticleListRequestEntity = new ArticleListRequestEntity();

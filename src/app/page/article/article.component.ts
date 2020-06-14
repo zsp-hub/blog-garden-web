@@ -32,8 +32,8 @@ export class ArticleComponent implements OnInit, OnDestroy {
   item: any = null;
 
   editorConfig = {
-    // base_url: '/tinymce',
-    // theme: 'silver',
+    base_url: '/tinymce',
+    theme: 'silver',
     toolbar: false,
     menubar: false,
     height: 500

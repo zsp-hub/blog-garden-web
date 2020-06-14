@@ -28,8 +28,8 @@ export class UserArticleComponent implements OnInit {
 
   // 富文本编辑器
   editorConfig = {
-    // base_url: '/tinymce',
-    // theme: 'silver',
+    base_url: '/tinymce',
+    theme: 'silver',
     menubar: false,
     // tslint:disable-next-line:max-line-length
     plugins: 'searchreplace autolink directionality visualblocks visualchars fullscreen image link template code codesample table charmap hr pagebreak nonbreaking anchor insertdatetime advlist lists wordcount imagetools textpattern help emoticons autosave',
