@@ -22,7 +22,7 @@
     "@tinymce/tinymce-angular": "^3.5.0",
     "ng-zorro-antd": "^8.5.2",
     "rxjs": "~6.4.0",
-    "tinymce": "^5.2.1",
+    "tinymce": "^5.10.0",
     "tslib": "^1.10.0",
     "zone.js": "~0.9.1"
   },
